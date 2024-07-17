@@ -33,6 +33,19 @@ public class BullsAndCows {
         System.out.println("La cantidad de intentos a jugar es: " + intentos);
         return intentos;
     }
+    public static int menuPrincipal(){
+        int opc = 0;
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("--------------------------------------");
+        System.out.println("Bulls and Cows");
+        System.out.println("\t1. Tutorial.");
+        System.out.println("\t2. Player vs Machine.");
+        System.out.println("\t3. Machine vs Player.");
+        System.out.println("\t4. Player vs Player.");
+        System.out.println("\t5. Leave.");
+        opc = entrada.nextInt();
+        return opc;
+    }
     public static void main(String[] args) {
         int cantidadDigitos = numberOfDigits();
         int cantidadIntentos = numberOfTries(cantidadDigitos);

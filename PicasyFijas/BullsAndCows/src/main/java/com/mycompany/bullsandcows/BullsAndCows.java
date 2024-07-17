@@ -5,7 +5,6 @@
 package com.mycompany.bullsandcows;
 
 import java.util.Scanner;
-
 /**
  *
  * @author Jan Sanchez
@@ -34,7 +33,6 @@ public class BullsAndCows {
         return intentos;
     }
     public static int menuPrincipal(){
-        int opc = 0;
         Scanner entrada = new Scanner(System.in);
         System.out.println("--------------------------------------");
         System.out.println("Bulls and Cows");
@@ -43,12 +41,38 @@ public class BullsAndCows {
         System.out.println("\t3. Machine vs Player.");
         System.out.println("\t4. Player vs Player.");
         System.out.println("\t5. Leave.");
-        opc = entrada.nextInt();
+        int opc = entrada.nextInt();
         return opc;
     }
     public static void main(String[] args) {
+        int opc;
+        do{
+            opc = menuPrincipal();
+            switch(opc){
+                case 1:
+                    System.out.println("Tutorial: ");
+                    break;
+                case 2:
+                    System.out.println("Modo jugador contra maquina ");
+                    break;
+                case 3:
+                    System.out.println("Modo maquina contra jugador ");
+                    break;
+                case 4:
+                    System.out.println("Modo jugador contra jugador");
+                    break;
+                case 5:
+                    System.out.println("Hasta pronto");
+                    break;
+                default:
+                    System.out.println("Numero equivocado ingrese otro numero");
+                    break;
+            }
+        }while(opc != 5);
+        /*
         int cantidadDigitos = numberOfDigits();
         int cantidadIntentos = numberOfTries(cantidadDigitos);
+        */
     }
 }
 

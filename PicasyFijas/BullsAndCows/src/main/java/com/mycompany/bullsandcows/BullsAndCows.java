@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class BullsAndCows {
     public static int numberOfTries(int intentos, int digitos){
         Scanner entrada = new Scanner(System.in);
-        while(intentos < 0 || intentos >= (digitos * 5)){
+        while(intentos < 0 || intentos > (digitos * 5)){
             System.out.println("Vuelva a escribir la cantidad de intentos");
             intentos = entrada.nextInt();
         }

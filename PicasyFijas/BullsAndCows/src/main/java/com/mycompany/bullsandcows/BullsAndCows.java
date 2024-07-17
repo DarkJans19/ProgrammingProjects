@@ -58,6 +58,10 @@ public class BullsAndCows {
         int option = sc.nextInt();
         return option;
     }
+    public static void gameOptions(){
+        int cantidadDigitos = numberOfDigits();
+        int cantidadIntentos = numberOfTries(cantidadDigitos);
+    }
     
     public static void IterationOfRepeated(){
         int option;
@@ -87,18 +91,22 @@ public class BullsAndCows {
             switch(opc){
                 case 1:
                     System.out.println("Tutorial");
+                    gameOptions();
                     break;
                 case 2:
                     System.out.println("Player vs Machine");
+                    gameOptions();
                     IterationOfRepeated();
                     break;
                 case 3:
                     System.out.println("Machine vs Player");
+                    gameOptions();
                     IterationOfRepeated();
                     break;
                 case 4:
                     System.out.println("Player vs Player");
                     IterationOfRepeated();
+                    gameOptions();
                     break;
                 case 5:
                     System.out.println("Good bye");
@@ -108,10 +116,6 @@ public class BullsAndCows {
                     break;
             }
         }while(opc != 5);
-        /*
-        int cantidadDigitos = numberOfDigits();
-        int cantidadIntentos = numberOfTries(cantidadDigitos);
-        */
     }
 }
 

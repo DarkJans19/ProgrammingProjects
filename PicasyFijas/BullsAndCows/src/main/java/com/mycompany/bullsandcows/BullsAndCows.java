@@ -10,62 +10,101 @@ import java.util.Scanner;
  * @author Jan Sanchez
  */
 public class BullsAndCows {
+    
     public static int numberOfDigits(){
-        Scanner entrada = new Scanner(System.in);        
-        System.out.println("¿Con cuantos digitos desea jugar?");
-        int digitos = entrada.nextInt();
-        while(digitos < 1 || digitos > 10){
-            System.out.println("Vuelva a escribir la cantidad de digitos");
-            digitos = entrada.nextInt();
+        Scanner sc = new Scanner(System.in);        
+        System.out.println("How many numbers do you want to play with?");
+        int digits = sc.nextInt();
+        while(digits < 1 || digits > 10){
+            System.out.println("Write again the amount of digits do you want to play");
+            digits = sc.nextInt();
         }
-        System.out.println("la cantidad de digitos a jugar es: " + digitos);
-        return digitos;
+        System.out.println("The amount of digits to play is: " + digits);
+        return digits;
     }
-    public static int numberOfTries(int digitos){
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("¿Cuantos intentos quiere realizar?: ");
-        int intentos = entrada.nextInt();
-        while(intentos <= 0 || intentos > (digitos * 5)){
-            System.out.println("Vuelva a escribir la cantidad de intentos");
-            intentos = entrada.nextInt();
+    
+    public static int numberOfTries(int digits){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("How many tries do you want to play with?: ");
+        int tries = sc.nextInt();
+        while(tries <= 0 || tries > (digits * 5)){
+            System.out.println("Write again the number of tries");
+            tries = sc.nextInt();
         }   
-        System.out.println("La cantidad de intentos a jugar es: " + intentos);
-        return intentos;
+        System.out.println("The amount of tries to play is: " + tries);
+        return tries;
     }
-    public static int menuPrincipal(){
-        Scanner entrada = new Scanner(System.in);
+    
+    public static int PrincipalMenu(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("--------------------------------------");
-        System.out.println("Bulls and Cows");
+        System.out.println("\tBulls and Cows");
         System.out.println("\t1. Tutorial.");
         System.out.println("\t2. Player vs Machine.");
         System.out.println("\t3. Machine vs Player.");
         System.out.println("\t4. Player vs Player.");
         System.out.println("\t5. Leave.");
-        int opc = entrada.nextInt();
+        int opc = sc.nextInt();
         return opc;
     }
+    
+    public static int MenuOfRepeated(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("--------------------------------------");
+        System.out.println("\tHow do you want to play?");
+        System.out.println("\t1. With repeated numbers");
+        System.out.println("\t2. Without repeated numbers");
+        System.out.println("\t3. Salir.");
+        int option = sc.nextInt();
+        return option;
+    }
+    
+    public static void IterationOfRepeated(){
+        int option;
+        do{
+            option = MenuOfRepeated();
+            switch(option){
+                case 1:
+                    System.out.println("You chose repeated numbers");
+                    break;
+                case 2:
+                    System.out.println("You chose without repeated numbers");
+                    break;
+                case 3:
+                    System.out.println("Go back");
+                    break;
+                default:
+                    System.out.println("Not valid number, try again");
+                    break;               
+            }
+        }while(option != 3);
+    } 
+    
     public static void main(String[] args) {
         int opc;
         do{
-            opc = menuPrincipal();
+            opc = PrincipalMenu();
             switch(opc){
                 case 1:
-                    System.out.println("Tutorial: ");
+                    System.out.println("Tutorial");
                     break;
                 case 2:
-                    System.out.println("Modo jugador contra maquina ");
+                    System.out.println("Player vs Machine");
+                    IterationOfRepeated();
                     break;
                 case 3:
-                    System.out.println("Modo maquina contra jugador ");
+                    System.out.println("Machine vs Player");
+                    IterationOfRepeated();
                     break;
                 case 4:
-                    System.out.println("Modo jugador contra jugador");
+                    System.out.println("Player vs Player");
+                    IterationOfRepeated();
                     break;
                 case 5:
-                    System.out.println("Hasta pronto");
+                    System.out.println("Good bye");
                     break;
                 default:
-                    System.out.println("Numero equivocado ingrese otro numero");
+                    System.out.println("The number entered is not valid");
                     break;
             }
         }while(opc != 5);

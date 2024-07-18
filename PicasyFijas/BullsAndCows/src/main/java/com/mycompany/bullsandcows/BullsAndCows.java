@@ -14,10 +14,10 @@ public class BullsAndCows {
     
     public static int numberOfDigits(){
         Scanner sc = new Scanner(System.in);        
-        System.out.println("How many numbers do you want to play with?");
+        System.out.print("How many numbers do you want to play with?");
         int digits = sc.nextInt();
         while(digits < 1 || digits > 10){
-            System.out.println("Write again the amount of digits do you want to play");
+            System.out.print("Write again the amount of digits do you want to play");
             digits = sc.nextInt();
         }
         System.out.println("The amount of digits to play is: " + digits);
@@ -26,10 +26,10 @@ public class BullsAndCows {
     
     public static int numberOfTries(int digits){
         Scanner sc = new Scanner(System.in);
-        System.out.println("How many tries do you want to play with?: ");
+        System.out.print("How many tries do you want to play with?: ");
         int tries = sc.nextInt();
         while(tries <= 0 || tries > (digits * 5)){
-            System.out.println("Write again the number of tries");
+            System.out.print("Write again the number of tries");
             tries = sc.nextInt();
         }   
         System.out.println("The amount of tries to play is: " + tries);
@@ -58,6 +58,15 @@ public class BullsAndCows {
         System.out.println("\t3. Salir.");
         int option = sc.nextInt();
         return option;
+    }
+    
+    public static String optionsMain(int opc){
+        return switch (opc) {
+            case 2 -> "Player vs Machine";
+            case 3 -> "Machine vs Player";
+            case 4 -> "Player vs Player";
+            default -> "";
+        };
     }
     
     public static int[] numberRandom(int digits) {
@@ -137,15 +146,9 @@ public class BullsAndCows {
                     System.out.println("Tutorial");
                     break;
                 case 2:
-                    System.out.println("Player vs Machine");
-                    IterationOfRepeated();
-                    break;
                 case 3:
-                    System.out.println("Machine vs Player");
-                    IterationOfRepeated();
-                    break;
                 case 4:
-                    System.out.println("Player vs Player");
+                    System.out.println(optionsMain(opc));
                     IterationOfRepeated();
                     break;
                 case 5:

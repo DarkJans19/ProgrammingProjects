@@ -4,6 +4,7 @@
 
 package com.mycompany.bullsandcows;
 
+import java.util.Random;
 import java.util.Scanner;
 /**
  *
@@ -58,8 +59,30 @@ public class BullsAndCows {
         int option = sc.nextInt();
         return option;
     }
-    public static void gameOptions(){
+    
+    public static int[] numberRandom(int digits) {
+        int[] numRandom = new int[digits];
+        Random random = new Random();
 
+        for (int i = 0; i < digits; i++) {
+            numRandom[i] = random.nextInt(10);
+        }
+
+        return numRandom;
+    }
+
+    public static int enterNumber(Scanner sc, int digits) {
+        int enterNumber;
+        do {
+            System.out.print("\tEnter a number of " + digits + ": ");
+            enterNumber = sc.nextInt();
+        } while (countDigits(enterNumber) != digits);
+
+        return enterNumber;
+    }
+
+    public static int countDigits(int num) {
+        return String.valueOf(num).length();
     }
     
     public static void IterationOfRepeated(){
@@ -90,6 +113,25 @@ public class BullsAndCows {
     } 
     
     public static void main(String[] args) {
+        
+        Scanner sc = new Scanner(System.in);   
+        int digits = numberOfDigits();
+       
+        int[] numRandom = numberRandom(digits);
+
+        System.out.println("Random number generated: ");
+        for (int num : numRandom) {
+            System.out.print(num);
+        }
+
+        int numberEntered = enterNumber(sc, digits);
+
+        System.out.print("Number entered: ");
+        System.out.println(numberEntered);
+    }
+    /*
+    
+    public static void main(String[] args) {
         int opc;
         do{
             opc = PrincipalMenu();
@@ -118,5 +160,6 @@ public class BullsAndCows {
             }
         }while(opc != 5);
     }
+    */
 }
 

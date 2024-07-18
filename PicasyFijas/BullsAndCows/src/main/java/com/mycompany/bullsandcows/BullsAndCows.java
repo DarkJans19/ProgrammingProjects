@@ -71,10 +71,11 @@ public class BullsAndCows {
         return numRandom;
     }
 
-    public static int enterNumber(Scanner sc, int digits) {
+    public static int enterNumber(int digits) {
+        Scanner sc = new Scanner(System.in);
         int enterNumber;
         do {
-            System.out.print("\tEnter a number of " + digits + ": ");
+            System.out.print("\nEnter a number of " + digits + " digits: ");
             enterNumber = sc.nextInt();
         } while (countDigits(enterNumber) != digits);
 
@@ -87,20 +88,22 @@ public class BullsAndCows {
     
     public static void IterationOfRepeated(){
         int option;
-        int amountOfDigits;
-        int amountOfTries;
+        int digits = 0;
+        int tries = 0;
         do{
             option = MenuOfRepeated();
             if(option == 1 || option == 2){
-                amountOfDigits = numberOfDigits();
-                amountOfTries = numberOfTries(amountOfDigits);
+                digits = numberOfDigits();
+                tries = numberOfTries(digits);
             }
             switch(option){
                 case 1:
                     System.out.println("You chose repeated numbers");
+                    startGame(digits);
                     break;
                 case 2:
                     System.out.println("You chose without repeated numbers");
+                    startGame(digits);
                     break;
                 case 3:
                     System.out.println("Go back");
@@ -112,26 +115,20 @@ public class BullsAndCows {
         }while(option != 3);
     } 
     
-    public static void main(String[] args) {
-        
-        Scanner sc = new Scanner(System.in);   
-        int digits = numberOfDigits();
-       
+    public static void startGame(int digits){
         int[] numRandom = numberRandom(digits);
-
-        System.out.println("Random number generated: ");
+        System.out.print("Random number generated: ");  
         for (int num : numRandom) {
             System.out.print(num);
         }
-
-        int numberEntered = enterNumber(sc, digits);
+        int numberEntered = enterNumber(digits);
 
         System.out.print("Number entered: ");
         System.out.println(numberEntered);
     }
-    /*
     
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         int opc;
         do{
             opc = PrincipalMenu();
@@ -160,6 +157,5 @@ public class BullsAndCows {
             }
         }while(opc != 5);
     }
-    */
 }
 

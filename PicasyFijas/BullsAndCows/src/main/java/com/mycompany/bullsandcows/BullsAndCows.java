@@ -68,6 +68,13 @@ public class BullsAndCows {
             default -> "";
         };
     }
+    public static String optionsRepeatedNumbers(int opc){
+        return switch (opc) {
+            case 1 -> "You chose repeated numbers";
+            case 2 -> "You chose without repeated numbers";
+            default -> "";
+        };
+    }
     
     public static int[] numberRandom(int digits) {
         int[] numRandom = new int[digits];
@@ -97,21 +104,16 @@ public class BullsAndCows {
     
     public static void IterationOfRepeated(){
         int option;
-        int digits = 0;
-        int tries = 0;
+        int digits;
+        int tries;
         do{
             option = MenuOfRepeated();
-            if(option == 1 || option == 2){
-                digits = numberOfDigits();
-                tries = numberOfTries(digits);
-            }
             switch(option){
                 case 1:
-                    System.out.println("You chose repeated numbers");
-                    startGame(digits);
-                    break;
                 case 2:
-                    System.out.println("You chose without repeated numbers");
+                    System.out.println(optionsRepeatedNumbers(option));
+                    digits = numberOfDigits();
+                    tries = numberOfTries(digits);
                     startGame(digits);
                     break;
                 case 3:
@@ -137,7 +139,6 @@ public class BullsAndCows {
     }
     
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         int opc;
         do{
             opc = PrincipalMenu();

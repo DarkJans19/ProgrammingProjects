@@ -57,7 +57,6 @@ public class BullsAndCows {
         };
     }
     
-    
     /* This method allows the player to enter the amount of numbers that they want to play, and if they choose an option
     bigger than 10 or smallest than 1 enter to the iteration 
     */
@@ -72,6 +71,7 @@ public class BullsAndCows {
         System.out.println("The amount of digits to play is: " + digits);
         return digits;
     }
+    
     /* This method allows the player to enter the amount of tries that they want to play, and if they choose an option
     bigger than the (amount of digits * 5) or smallest than 1 enter to the iteration 
     */
@@ -99,6 +99,7 @@ public class BullsAndCows {
 
         return numRandom;
     }
+    
     /* This method checkout the amount of digits the player and if is different that the amount of digits of the random number ask
     again for another number that completes the condition and return the number */
     public static int enterNumber(int digits) {
@@ -111,6 +112,7 @@ public class BullsAndCows {
 
         return enterNumber;
     }
+    
     // Count the amount of digits entered
     public static int countDigits(int num) {
         return String.valueOf(num).length();
@@ -141,6 +143,7 @@ public class BullsAndCows {
             }
         }while(option != 3);
     } 
+    
     // Generate a number random and ask show the number generated to the player
     public static void startGame(int digits){
         int[] numRandom = numberRandom(digits);

@@ -155,12 +155,28 @@ public class BullsAndCows {
 
         System.out.print("Number entered: ");
         System.out.println(numberEntered);
+        String numberString = numberToString(numberEntered);
+        char numberArray[] = generateArray(numberString);
+        showArray(numberArray);
     }
     
     // Convert an int to a String
     public static String numberToString(int number){
         String newNumber = Integer.toString(number);
         return newNumber;
+    }
+    
+    // Use the generated String to save the chars into an array
+    public static char[] generateArray(String newNumber){
+        char[] numberArray = newNumber.toCharArray();
+        return numberArray;
+    }
+    
+    // Show the array generated
+    public static void showArray(char[] numberArray){
+        for(char number : numberArray){
+            System.out.print(number + " ");
+        }
     }
     
     // it is the main and show the option of the game

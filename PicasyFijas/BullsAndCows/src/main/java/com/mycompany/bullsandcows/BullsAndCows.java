@@ -150,12 +150,9 @@ public class BullsAndCows {
         String numberEntered = enterNumber(digits);
         System.out.print("Number entered: ");
         System.out.println(numberEntered);
-    }
-    
-    // Convert an int to a String
-    public static String numberToString(int number){
-        String newNumber = Integer.toString(number);
-        return newNumber;
+        char stringArray[] = generateArray(numberEntered);
+        int numArray[] = charToString(stringArray);
+        showArray(numArray);
     }
     
     // Use the generated String to save the chars into an array
@@ -164,21 +161,22 @@ public class BullsAndCows {
         return numberArray;
     }
     
-    // Show the array generated
-    public static void showArray(char[] numberArray){
-        for(char number : numberArray){
-            System.out.print(number + " ");
+    // Convert a char array to an int
+    public static int[] charToString(char[] numberArray){
+        int newNumber[] = new int[numberArray.length];
+        for (int i = 0; i < numberArray.length; i++){
+            newNumber[i] = numberArray[i] - '0';
         }
+        return newNumber;
     }
     
-    /* Convert the char into an int
-    public static int[] toInt(char[] numberArray){
-        for (char number : numberArray){
-            
+    // Show the array generated
+    public static void showArray(int[] numberArray){
+        for(int number : numberArray){
+            System.out.print(number + " ");
         }
-        return 
+        System.out.println();
     }
-    */
     
     // it is the main and show the option of the game
     public static void main(String[] args) {

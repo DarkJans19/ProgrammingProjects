@@ -102,20 +102,15 @@ public class BullsAndCows {
     
     /* This method checkout the amount of digits the player and if is different that the amount of digits of the random number ask
     again for another number that completes the condition and return the number */
-    public static int enterNumber(int digits) {
+    public static String enterNumber(int digits) {
         Scanner sc = new Scanner(System.in);
-        int enterNumber;
+        String enterNumber;
         do {
             System.out.print("\nEnter a number of " + digits + " digits: ");
-            enterNumber = sc.nextInt();
-        } while (countDigits(enterNumber) != digits);
+            enterNumber = sc.nextLine();
+        } while (enterNumber.length() != digits);
 
         return enterNumber;
-    }
-    
-    // Count the amount of digits entered
-    public static int countDigits(int num) {
-        return String.valueOf(num).length();
     }
     
     // Are the options for the players if want to play with repeated numbers or not
@@ -123,6 +118,7 @@ public class BullsAndCows {
         int option;
         int digits;
         int tries;
+        
         do{
             option = MenuOfRepeated();
             switch(option){
@@ -151,13 +147,9 @@ public class BullsAndCows {
         for (int num : numRandom) {
             System.out.print(num);
         }
-        int numberEntered = enterNumber(digits);
-
+        String numberEntered = enterNumber(digits);
         System.out.print("Number entered: ");
         System.out.println(numberEntered);
-        String numberString = numberToString(numberEntered);
-        char numberArray[] = generateArray(numberString);
-        showArray(numberArray);
     }
     
     // Convert an int to a String
@@ -178,6 +170,15 @@ public class BullsAndCows {
             System.out.print(number + " ");
         }
     }
+    
+    /* Convert the char into an int
+    public static int[] toInt(char[] numberArray){
+        for (char number : numberArray){
+            
+        }
+        return 
+    }
+    */
     
     // it is the main and show the option of the game
     public static void main(String[] args) {

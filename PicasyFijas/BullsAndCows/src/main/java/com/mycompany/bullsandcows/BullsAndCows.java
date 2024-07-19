@@ -144,7 +144,8 @@ public class BullsAndCows {
 
         return enterNumber;
     }
-
+    
+    // Show the amount of bulls and cows of the entered number 
     public static void bullsAndCows(int[] numberArray, int[] randomArray){
         int cows = 0;
         int bulls = 0;

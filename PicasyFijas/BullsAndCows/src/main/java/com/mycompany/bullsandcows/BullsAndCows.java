@@ -145,22 +145,15 @@ public class BullsAndCows {
         return enterNumber;
     }
     
-    // This method show the number of cows but isn't complete 
-    public static int cows(int[] numberArray, int[] randomArray){
-        int cows = 0;
-        for(int number : randomArray){
-            System.out.println("Curring random number: " + number);
-            for(int number1 : numberArray){
-                System.out.println("\tCurring entered number: " + number1);
-                if(number1 == number){
-                    cows++;
-                    System.out.println(cows);
-                    break;
-                }
-                System.out.println(cows);
+    // This method show the number of bulls 
+    public static int bulls(int[] numberArray, int[] randomArray){
+        int bulls = 0;
+        for(int i = 0; i < randomArray.length; i++){
+            if(numberArray[i] == randomArray[i]){
+                bulls++;
             }
         }
-        return cows;
+        return bulls;
     }
     
     // Generate a number random and ask show the number generated to the player
@@ -175,7 +168,7 @@ public class BullsAndCows {
         char stringArray[] = generateArray(numberEntered);
         int numArray[] = charToString(stringArray);
         showArray(numArray);
-        cows(numArray, numRandom);
+        bulls(numArray, numRandom);
     }
     
     // Are the options for the players if want to play with repeated numbers or not

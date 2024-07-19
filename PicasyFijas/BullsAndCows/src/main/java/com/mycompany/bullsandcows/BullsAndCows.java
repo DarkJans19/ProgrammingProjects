@@ -126,14 +126,21 @@ public class BullsAndCows {
         return enterNumber;
     }
     
-    // Show the amount of bulls and cows of the entered number 
-    public static void bullsAndCows(int[] numberArray, int[] randomArray){
-        int cows = 0;
+    public static int bulls(int[] numberArray, int[] randomArray){
         int bulls = 0;
-        boolean marked[] = new boolean[randomArray.length];
         for(int i = 0; i < randomArray.length; i++){
             if(numberArray[i] == randomArray[i]){
                 bulls++;
+            }
+        }
+        return bulls;
+    }
+    // Show the amount of bulls and cows of the entered number 
+    public static int cows(int[] numberArray, int[] randomArray){
+        int cows = 0;
+        boolean marked[] = new boolean[randomArray.length];
+        for(int i = 0; i < randomArray.length; i++){
+            if(numberArray[i] == randomArray[i]){
                 marked[i] = true;
             }
         }
@@ -147,24 +154,51 @@ public class BullsAndCows {
                 }
             }
         }
-        System.out.println("The number of cows is: " + cows);
-        System.out.println("The number of bulls is: " + bulls);
+        return cows;
     }
     
+    //Logic of the player vs machine
     public static void playerVsMachine(int digits, int tries){
-        int actualTries = 1;
+        // initialize the variables
+        int actualTries = 0;
+        int bulls;
+        int cows;
         int[] numRandom = numberRandom(digits);
+        // Show the number generated
         System.out.print("Random number generated: ");      
         showArray(numRandom);
         do{
+            // The player enter his number
             String numberEntered = enterNumber(digits);
             System.out.print("Number entered: ");
+            // The number is transformed to char and int and save the number in an array
             char stringArray[] = generateArray(numberEntered);
             int numArray[] = charToString(stringArray);
+            // Show the number array
             showArray(numArray);
-            bullsAndCows(numArray, numRandom);
-            System.out.println("Actual tries: " + actualTries);
-        }while(actualTries <= tries);
+            // Save in variables the amount of bulls and cows
+            bulls = bulls(numArray, numRandom);
+            cows = cows(numArray, numRandom);
+            // Show the amount of bulls and cows
+            System.out.println("The amount of bulls is: " + bulls);
+            System.out.println("The amount of cows is: " + cows);
+            // Finish the game if the player guess the number
+            if(finishGame(bulls, numRandom)){
+                System.out.println("Congratulations you guessed the number!");
+                break;
+            }
+            // Show and actualize the number of tries
+            System.out.println("Actual tries: " + (actualTries+1));
+            actualTries++;
+        }while(actualTries < tries);
+        // if the player doesn't guess the number show this message
+        if(!finishGame(bulls, numRandom)){
+            System.out.println("Sorry you have run out of tries, better luck the next time!");
+        }
+    }
+    
+    public static boolean finishGame(int bulls, int[] randomArray){
+        return bulls == randomArray.length;
     }
     
     // Are the options for the players if want to play with repeated numbers or not
@@ -209,8 +243,14 @@ public class BullsAndCows {
                             switch(option){
                                 case 1:
                                 System.out.println("You chose repeated numbers");
+                                    digits = numberOfDigits();
+                                    tries = numberOfTries(digits);
+                                    playerVsMachine(digits, tries);
                                     break;
                                 case 2:
+                                    digits = numberOfDigits();
+                                    tries = numberOfTries(digits);
+                                    playerVsMachine(digits, tries);
                                     System.out.println("You chose without repeated numbers");
                                 break;
                                 case 3:

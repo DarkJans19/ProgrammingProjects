@@ -97,6 +97,40 @@ public class BullsAndCows {
         }
         return numRandom;
     }
+        // Use the generated String to save the chars into an array
+    public static char[] generateArray(String newNumber){
+        char[] numberArray = newNumber.toCharArray();
+        return numberArray;
+    }
+    
+    // Convert a char array to an int
+    public static int[] charToString(char[] numberArray){
+        int newNumber[] = new int[numberArray.length];
+        for (int i = 0; i < numberArray.length; i++){
+            newNumber[i] = numberArray[i] - '0';
+        }
+        return newNumber;
+    }
+    
+    // Show the array generated
+    public static void showArray(int[] numberArray){
+        for(int number : numberArray){
+            System.out.print(number + " ");
+        }
+        System.out.println();
+    }
+    // This method verifys the number has letters or not, if they have letters, or are empty or have a space return a false else return a true
+    public static boolean isValid(String numEntered){
+        if(numEntered == null || numEntered.isEmpty()){
+            return false;
+        }
+        for(char digits : numEntered.toCharArray()){
+            if(!Character.isDigit(digits)){
+                return false;
+            }
+        }
+        return true;
+    }
     
     /* This method checkout the amount of digits the player and if is different that the amount of digits of the random number ask
     again for another number that completes the condition and return the number */
@@ -111,17 +145,30 @@ public class BullsAndCows {
         return enterNumber;
     }
     
-    // This method verifys the number has letters or not, if they have letters, or are empty or have a space return a false else return a true
-    public static boolean isValid(String numEntered){
-        if(numEntered == null || numEntered.isEmpty()){
-            return false;
-        }
-        for(char digits : numEntered.toCharArray()){
-            if(!Character.isDigit(digits)){
-                return false;
+    public static int bulls(int[] numberArray, int[] randomArray){
+        int bulls = 0;
+        for(int number : randomArray){
+            for(int number1 : numberArray){
+                if(number == number1){
+                    bulls++;
+                }
             }
         }
-        return true;
+        return bulls;
+    }
+    
+    // Generate a number random and ask show the number generated to the player
+    public static void startGame(int digits){
+        int[] numRandom = numberRandom(digits);
+        System.out.print("Random number generated: ");  
+        for (int num : numRandom) {
+            System.out.print(num);
+        }
+        String numberEntered = enterNumber(digits);
+        System.out.print("Number entered: ");
+        char stringArray[] = generateArray(numberEntered);
+        int numArray[] = charToString(stringArray);
+        showArray(numArray);
     }
     
     // Are the options for the players if want to play with repeated numbers or not
@@ -150,42 +197,6 @@ public class BullsAndCows {
         }while(option != 3);
     } 
     
-    // Generate a number random and ask show the number generated to the player
-    public static void startGame(int digits){
-        int[] numRandom = numberRandom(digits);
-        System.out.print("Random number generated: ");  
-        for (int num : numRandom) {
-            System.out.print(num);
-        }
-        String numberEntered = enterNumber(digits);
-        System.out.print("Number entered: ");
-        char stringArray[] = generateArray(numberEntered);
-        int numArray[] = charToString(stringArray);
-        showArray(numArray);
-    }
-    
-    // Use the generated String to save the chars into an array
-    public static char[] generateArray(String newNumber){
-        char[] numberArray = newNumber.toCharArray();
-        return numberArray;
-    }
-    
-    // Convert a char array to an int
-    public static int[] charToString(char[] numberArray){
-        int newNumber[] = new int[numberArray.length];
-        for (int i = 0; i < numberArray.length; i++){
-            newNumber[i] = numberArray[i] - '0';
-        }
-        return newNumber;
-    }
-    
-    // Show the array generated
-    public static void showArray(int[] numberArray){
-        for(int number : numberArray){
-            System.out.print(number + " ");
-        }
-        System.out.println();
-    }
     
     // it is the main and show the option of the game
     public static void main(String[] args) {

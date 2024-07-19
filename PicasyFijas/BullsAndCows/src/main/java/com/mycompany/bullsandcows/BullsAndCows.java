@@ -100,6 +100,16 @@ public class BullsAndCows {
         return numRandom;
     }
     
+    public static boolean verifyDigits(String num){
+        for(int i = 0; i < num.length(); i++){
+            char caracter = num.charAt(i);
+            if(Character.isDigit(caracter)){
+                return false;
+            } 
+        }
+        return true;
+    }
+    
     /* This method checkout the amount of digits the player and if is different that the amount of digits of the random number ask
     again for another number that completes the condition and return the number */
     public static String enterNumber(int digits) {
@@ -108,7 +118,7 @@ public class BullsAndCows {
         do {
             System.out.print("\nEnter a number of " + digits + " digits: ");
             enterNumber = sc.nextLine();
-        } while (enterNumber.length() != digits);
+        } while (enterNumber.length() != digits && (verifyDigits(enterNumber) == false));
 
         return enterNumber;
     }

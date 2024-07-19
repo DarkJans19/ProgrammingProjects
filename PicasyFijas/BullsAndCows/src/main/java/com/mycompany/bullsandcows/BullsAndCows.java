@@ -36,26 +36,7 @@ public class BullsAndCows {
         System.out.println("\t3. Salir.");
         int option = sc.nextInt();
         return option;
-    }
-    
-    // This method optimize the switch of the main for reduce breaks 
-    public static String optionsMain(int opc){
-        return switch (opc) {
-            case 2 -> "Player vs Machine";
-            case 3 -> "Machine vs Player";
-            case 4 -> "Player vs Player";
-            default -> "";
-        };
-    }
-    
-    // This method optimize the switch of iterationOfRepeated and return the String when the player choose an option
-    public static String optionsRepeatedNumbers(int opc){
-        return switch (opc) {
-            case 1 -> "You chose repeated numbers";
-            case 2 -> "You chose without repeated numbers";
-            default -> "";
-        };
-    }
+    } 
     
     /* This method allows the player to enter the amount of numbers that they want to play, and if they choose an option
     bigger than 10 or smallest than 1 enter to the iteration 
@@ -170,36 +151,33 @@ public class BullsAndCows {
         System.out.println("The number of bulls is: " + bulls);
     }
     
-    // Generate a number random and ask show the number generated to the player
-    public static void startGame(int digits){
+    public static void playerVsMachine(int digits, int tries){
+        int actualTries = 1;
         int[] numRandom = numberRandom(digits);
-        System.out.print("Random number generated: ");  
-        for (int num : numRandom) {
-            System.out.print(num);
-        }
-        String numberEntered = enterNumber(digits);
-        System.out.print("Number entered: ");
-        char stringArray[] = generateArray(numberEntered);
-        int numArray[] = charToString(stringArray);
-        showArray(numArray);
-        bullsAndCows(numArray, numRandom);
+        System.out.print("Random number generated: ");      
+        showArray(numRandom);
+        do{
+            String numberEntered = enterNumber(digits);
+            System.out.print("Number entered: ");
+            char stringArray[] = generateArray(numberEntered);
+            int numArray[] = charToString(stringArray);
+            showArray(numArray);
+            bullsAndCows(numArray, numRandom);
+            System.out.println("Actual tries: " + actualTries);
+        }while(actualTries <= tries);
     }
     
     // Are the options for the players if want to play with repeated numbers or not
     public static void IterationOfRepeated(){
         int option;
-        int digits;
-        int tries;  
         do{
             option = MenuOfRepeated();
             switch(option){
                 case 1:
+                    System.out.println("You chose repeated numbers");
+                    break;
                 case 2:
-                    // Calls the function for show the option choosed
-                    System.out.println(optionsRepeatedNumbers(option));
-                    digits = numberOfDigits();
-                    tries = numberOfTries(digits);
-                    startGame(digits);
+                    System.out.println("You chose without repeated numbers");
                     break;
                 case 3:
                     System.out.println("Go back");
@@ -215,17 +193,74 @@ public class BullsAndCows {
     // it is the main and show the option of the game
     public static void main(String[] args) {
         int opc;
+        int digits;
+        int tries;
         do{
             opc = PrincipalMenu();
+            int option;
             switch(opc){
                 case 1:
                     System.out.println("Tutorial");
                     break;
                 case 2:
+                    System.out.println("Player vs Machine");
+                    do{
+                        option = MenuOfRepeated();
+                            switch(option){
+                                case 1:
+                                System.out.println("You chose repeated numbers");
+                                    break;
+                                case 2:
+                                    System.out.println("You chose without repeated numbers");
+                                break;
+                                case 3:
+                                    System.out.println("Go back");
+                                break;
+                                default:
+                                    System.out.println("Not valid number, try again");
+                                break;               
+                            }
+                        }while(option != 3);
+                    break;
                 case 3:
+                    System.out.println("Machine vs Player");
+                    do{
+                        option = MenuOfRepeated();
+                            switch(option){
+                            case 1:
+                                    System.out.println("You chose repeated numbers");
+                                break;
+                            case 2:
+                                    System.out.println("You chose without repeated numbers");
+                                break;
+                            case 3:
+                                    System.out.println("Go back");
+                                break;
+                            default:
+                                    System.out.println("Not valid number, try again");
+                                break;               
+                            }
+                        }while(option != 3);
+                    break;
                 case 4:
-                    System.out.println(optionsMain(opc));
-                    IterationOfRepeated();
+                    System.out.println("Player vs Player");
+                    do{
+                        option = MenuOfRepeated();
+                            switch(option){
+                            case 1:
+                                System.out.println("You chose repeated numbers");
+                                break;
+                            case 2:
+                                System.out.println("You chose without repeated numbers");
+                                break;
+                            case 3:
+                                System.out.println("Go back");
+                                break;
+                            default:
+                                System.out.println("Not valid number, try again");
+                                break;               
+                            }
+                        }while(option != 3);
                     break;
                 case 5:
                     System.out.println("Good bye");

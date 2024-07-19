@@ -88,26 +88,14 @@ public class BullsAndCows {
     }
     
     
-    // This method generate a random number 
+    // This method generate an array with randoms numbers 
     public static int[] numberRandom(int digits) {
         int[] numRandom = new int[digits];
         Random random = new Random();
-
         for (int i = 0; i < digits; i++) {
             numRandom[i] = random.nextInt(10);
         }
-
         return numRandom;
-    }
-    
-    public static boolean verifyDigits(String num){
-        for(int i = 0; i < num.length(); i++){
-            char caracter = num.charAt(i);
-            if(Character.isDigit(caracter)){
-                return false;
-            } 
-        }
-        return true;
     }
     
     /* This method checkout the amount of digits the player and if is different that the amount of digits of the random number ask
@@ -118,17 +106,29 @@ public class BullsAndCows {
         do {
             System.out.print("\nEnter a number of " + digits + " digits: ");
             enterNumber = sc.nextLine();
-        } while (enterNumber.length() != digits && (verifyDigits(enterNumber) == false));
+        } while (enterNumber.length() != digits || !isValid(enterNumber));
 
         return enterNumber;
+    }
+    
+    // This method verifys the number has letters or not, if they have letters, or are empty or have a space return a false else return a true
+    public static boolean isValid(String numEntered){
+        if(numEntered == null || numEntered.isEmpty()){
+            return false;
+        }
+        for(char digits : numEntered.toCharArray()){
+            if(!Character.isDigit(digits)){
+                return false;
+            }
+        }
+        return true;
     }
     
     // Are the options for the players if want to play with repeated numbers or not
     public static void IterationOfRepeated(){
         int option;
         int digits;
-        int tries;
-        
+        int tries;  
         do{
             option = MenuOfRepeated();
             switch(option){
@@ -159,7 +159,6 @@ public class BullsAndCows {
         }
         String numberEntered = enterNumber(digits);
         System.out.print("Number entered: ");
-        System.out.println(numberEntered);
         char stringArray[] = generateArray(numberEntered);
         int numArray[] = charToString(stringArray);
         showArray(numArray);

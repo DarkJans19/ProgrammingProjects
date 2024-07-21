@@ -46,7 +46,7 @@ public class BullsAndCows {
         System.out.print("How many numbers do you want to play with?: ");
         int digits = sc.nextInt();
         while(digits < 1 || digits > 10){
-            System.out.print("Write again the amount of digits do you want to play");
+            System.out.print("Write again the amount of digits do you want to play: ");
             digits = sc.nextInt();
         }
         System.out.println("The amount of digits to play is: " + digits);
@@ -98,7 +98,6 @@ public class BullsAndCows {
         for(int number : numberArray){
             System.out.print(number + " ");
         }
-        System.out.println();
     }
     
     // This method verifys the number has letters or not, if they have letters, or are empty or have a space return a false else return a true
@@ -120,7 +119,7 @@ public class BullsAndCows {
         Scanner sc = new Scanner(System.in);
         String enterNumber;
         do {
-            System.out.print("\nEnter a number of " + digits + " digits: ");
+            System.out.print("Enter a number of " + digits + " digits: ");
             enterNumber = sc.nextLine();
         } while (enterNumber.length() != digits || !isValid(enterNumber));
 
@@ -161,15 +160,16 @@ public class BullsAndCows {
     }
     
     //Logic of the player vs machine
-    public static int playerVsMachine(int digits, int tries){
+    public static int playerVsMachine(int digits, int tries, boolean isTutorial){
         // initialize the variables
         int actualTries = 0;
         int bulls;
         int cows;
         int[] numRandom = numberRandom(digits);
-        // Show the number generated
-        System.out.print("Random number generated: ");      
-        showArray(numRandom);
+        if(isTutorial){
+            System.out.println("Random number generated: ");
+            showArray(numRandom);
+        }
         do{
             // The player enter his number
             String numberEntered = enterNumber(digits);
@@ -217,10 +217,10 @@ public class BullsAndCows {
     
     public static void playerVsPlayer(int digits, int tries){
         System.out.println("First player turn");
-        int player1 = playerVsMachine(digits, tries);
+        int player1 = playerVsMachine(digits, tries, false);
         int score1 = score(player1, tries);
         System.out.println("Second player turn");
-        int player2 = playerVsMachine(digits, tries);
+        int player2 = playerVsMachine(digits, tries, false);
         int score2 = score(player2, tries);
         // The number with minus score wins 
         if(score1 > score2){
@@ -275,7 +275,8 @@ public class BullsAndCows {
                     System.out.println("Give it a try");
                     digits = numberOfDigits();
                     tries = numberOfTries(digits);
-                    playerVsMachine(digits, tries);
+                    System.out.println("I will show you the random number so you can understand better");
+                    playerVsMachine(digits, tries, true);
                     break;
                 case 2:
                     System.out.println("Player vs Machine");
@@ -286,13 +287,13 @@ public class BullsAndCows {
                                 System.out.println("You chose repeated numbers");
                                     digits = numberOfDigits();
                                     tries = numberOfTries(digits);
-                                    playerVsMachine(digits, tries);
+                                    playerVsMachine(digits, tries, false);
                                     break;
                                 case 2:
                                     System.out.println("You chose without repeated numbers");
                                     digits = numberOfDigits();
                                     tries = numberOfTries(digits);
-                                    playerVsMachine(digits, tries);
+                                    playerVsMachine(digits, tries, false);
                                 break;
                                 case 3:
                                     System.out.println("Go back");

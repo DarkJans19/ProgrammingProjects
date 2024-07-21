@@ -201,6 +201,20 @@ public class BullsAndCows {
         return bulls == randomArray.length;
     }
     
+    public static boolean tries(int tries){
+        if(){
+            
+        }
+        return true;
+    }
+    
+    public static void playerVsPlayer(int digits, int tries){
+        System.out.println("First player turn");
+        playerVsMachine(digits, tries);
+        System.out.println("Second player turn");
+        playerVsMachine(digits, tries);
+    }
+    
     // Are the options for the players if want to play with repeated numbers or not
     public static void IterationOfRepeated(){
         int option;
@@ -289,9 +303,15 @@ public class BullsAndCows {
                             switch(option){
                             case 1:
                                 System.out.println("You chose repeated numbers");
+                                digits = numberOfDigits();
+                                tries = numberOfTries(digits);
+                                playerVsMachine(digits, tries);
                                 break;
                             case 2:
                                 System.out.println("You chose without repeated numbers");
+                                digits = numberOfDigits();
+                                tries = numberOfTries(digits);
+                                playerVsMachine(digits, tries);
                                 break;
                             case 3:
                                 System.out.println("Go back");

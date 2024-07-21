@@ -185,19 +185,20 @@ public class BullsAndCows {
             // Show the amount of bulls and cows
             System.out.println("The amount of bulls is: " + bulls);
             System.out.println("The amount of cows is: " + cows);
+            // Show and actualize the number of tries
+            System.out.println("Actual tries: " + (actualTries+1));
             // Finish the game if the player guess the number
             if(finishGame(bulls, numRandom)){
                 System.out.println("Congratulations you guessed the number!");
                 break;
             }
-            // Show and actualize the number of tries
-            System.out.println("Actual tries: " + (actualTries+1));
             actualTries++;
         }while(actualTries < tries);
         // if the player doesn't guess the number show this message
         if(!finishGame(bulls, numRandom)){
             System.out.println("Sorry you have run out of tries, better luck the next time!");
         }
+        System.out.println(score(actualTries, tries));
         return actualTries;
     }
     
@@ -207,22 +208,25 @@ public class BullsAndCows {
     }
     
     // Add the logic of the score and this function is to mark the winner of Player vs Player
-    public static int score(int actualTries){
-        return actualTries*100;
+    public static int score(int actualTries, int tries){
+        tries *= 100;
+        actualTries *= 100;
+        int score = tries - actualTries;
+        return score;
     }
     
     public static void playerVsPlayer(int digits, int tries){
         System.out.println("First player turn");
         int player1 = playerVsMachine(digits, tries);
-        int score1 = score(player1);
+        int score1 = score(player1, tries);
         System.out.println("Second player turn");
         int player2 = playerVsMachine(digits, tries);
-        int score2 = score(player2);
+        int score2 = score(player2, tries);
         // The number with minus score wins 
-        if(score1 < score2){
+        if(score1 > score2){
             System.out.println("The player 1 wins");
         }
-        else if(score2 < score1){
+        else if(score1 < score2){
             System.out.println("The player 2 wins");
         }
         else{
@@ -251,7 +255,6 @@ public class BullsAndCows {
             }
         }while(option != 3);
     } 
-    
     
     // it is the main and show the option of the game
     public static void main(String[] args) {

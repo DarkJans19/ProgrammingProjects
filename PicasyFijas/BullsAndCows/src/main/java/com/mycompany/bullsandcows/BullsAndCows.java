@@ -198,7 +198,7 @@ public class BullsAndCows {
         if(!finishGame(bulls, numRandom)){
             System.out.println("Sorry you have run out of tries, better luck the next time!");
         }
-        System.out.println(score(actualTries, tries));
+        System.out.println("Your score is: " + score(actualTries, tries));
         return actualTries;
     }
     
@@ -267,6 +267,15 @@ public class BullsAndCows {
             switch(opc){
                 case 1:
                     System.out.println("Tutorial");
+                    System.out.println("Welcome to the tutorial of the game bulls and cows, this is an interesting game and");
+                    System.out.println("the objective of the game is to guess a number, and the machine will give you some");
+                    System.out.println("clues to guess it, named bulls and cows");
+                    System.out.println("The bulls are the correct number in the correct position");
+                    System.out.println("The cows are the correct number but not the correct position");
+                    System.out.println("Give it a try");
+                    digits = numberOfDigits();
+                    tries = numberOfTries(digits);
+                    playerVsMachine(digits, tries);
                     break;
                 case 2:
                     System.out.println("Player vs Machine");

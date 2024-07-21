@@ -158,7 +158,7 @@ public class BullsAndCows {
     }
     
     //Logic of the player vs machine
-    public static void playerVsMachine(int digits, int tries){
+    public static int playerVsMachine(int digits, int tries){
         // initialize the variables
         int actualTries = 0;
         int bulls;
@@ -185,7 +185,7 @@ public class BullsAndCows {
             // Finish the game if the player guess the number
             if(finishGame(bulls, numRandom)){
                 System.out.println("Congratulations you guessed the number!");
-                break;
+                return actualTries;
             }
             // Show and actualize the number of tries
             System.out.println("Actual tries: " + (actualTries+1));
@@ -195,24 +195,20 @@ public class BullsAndCows {
         if(!finishGame(bulls, numRandom)){
             System.out.println("Sorry you have run out of tries, better luck the next time!");
         }
+        return actualTries;
     }
     
     public static boolean finishGame(int bulls, int[] randomArray){
         return bulls == randomArray.length;
     }
     
-    public static boolean tries(int tries){
-        if(){
-            
-        }
-        return true;
-    }
-    
     public static void playerVsPlayer(int digits, int tries){
+        /*
         System.out.println("First player turn");
         playerVsMachine(digits, tries);
         System.out.println("Second player turn");
         playerVsMachine(digits, tries);
+        */
     }
     
     // Are the options for the players if want to play with repeated numbers or not

@@ -100,6 +100,7 @@ public class BullsAndCows {
         }
         System.out.println();
     }
+    
     // This method verifys the number has letters or not, if they have letters, or are empty or have a space return a false else return a true
     public static boolean isValid(String numEntered){
         if(numEntered == null || numEntered.isEmpty()){
@@ -126,6 +127,7 @@ public class BullsAndCows {
         return enterNumber;
     }
     
+    // Show the amount of cows of the entered number 
     public static int bulls(int[] numberArray, int[] randomArray){
         int bulls = 0;
         for(int i = 0; i < randomArray.length; i++){
@@ -135,7 +137,8 @@ public class BullsAndCows {
         }
         return bulls;
     }
-    // Show the amount of bulls and cows of the entered number 
+    
+    // Show the amount of cows of the entered number 
     public static int cows(int[] numberArray, int[] randomArray){
         int cows = 0;
         boolean marked[] = new boolean[randomArray.length];
@@ -185,7 +188,7 @@ public class BullsAndCows {
             // Finish the game if the player guess the number
             if(finishGame(bulls, numRandom)){
                 System.out.println("Congratulations you guessed the number!");
-                return actualTries;
+                break;
             }
             // Show and actualize the number of tries
             System.out.println("Actual tries: " + (actualTries+1));
@@ -198,17 +201,33 @@ public class BullsAndCows {
         return actualTries;
     }
     
+    // Finish the game of bulls and cows
     public static boolean finishGame(int bulls, int[] randomArray){
         return bulls == randomArray.length;
     }
     
+    // Add the logic of the score and this function is to mark the winner of Player vs Player
+    public static int score(int actualTries){
+        return actualTries*100;
+    }
+    
     public static void playerVsPlayer(int digits, int tries){
-        /*
         System.out.println("First player turn");
-        playerVsMachine(digits, tries);
+        int player1 = playerVsMachine(digits, tries);
+        int score1 = score(player1);
         System.out.println("Second player turn");
-        playerVsMachine(digits, tries);
-        */
+        int player2 = playerVsMachine(digits, tries);
+        int score2 = score(player2);
+        // The number with minus score wins 
+        if(score1 < score2){
+            System.out.println("The player 1 wins");
+        }
+        else if(score2 < score1){
+            System.out.println("The player 2 wins");
+        }
+        else{
+            System.out.println("Nobody's wins");
+        }
     }
     
     // Are the options for the players if want to play with repeated numbers or not
@@ -258,10 +277,10 @@ public class BullsAndCows {
                                     playerVsMachine(digits, tries);
                                     break;
                                 case 2:
+                                    System.out.println("You chose without repeated numbers");
                                     digits = numberOfDigits();
                                     tries = numberOfTries(digits);
                                     playerVsMachine(digits, tries);
-                                    System.out.println("You chose without repeated numbers");
                                 break;
                                 case 3:
                                     System.out.println("Go back");
@@ -301,13 +320,13 @@ public class BullsAndCows {
                                 System.out.println("You chose repeated numbers");
                                 digits = numberOfDigits();
                                 tries = numberOfTries(digits);
-                                playerVsMachine(digits, tries);
+                                playerVsPlayer(digits, tries);
                                 break;
                             case 2:
                                 System.out.println("You chose without repeated numbers");
                                 digits = numberOfDigits();
                                 tries = numberOfTries(digits);
-                                playerVsMachine(digits, tries);
+                                playerVsPlayer(digits, tries);
                                 break;
                             case 3:
                                 System.out.println("Go back");

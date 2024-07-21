@@ -4,6 +4,7 @@
 
 package com.mycompany.bullsandcows;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 /**
@@ -98,6 +99,7 @@ public class BullsAndCows {
         for(int number : numberArray){
             System.out.print(number + " ");
         }
+        System.out.println();
     }
     
     // This method verifys the number has letters or not, if they have letters, or are empty or have a space return a false else return a true
@@ -122,7 +124,6 @@ public class BullsAndCows {
             System.out.print("Enter a number of " + digits + " digits: ");
             enterNumber = sc.nextLine();
         } while (enterNumber.length() != digits || !isValid(enterNumber));
-
         return enterNumber;
     }
     
@@ -130,6 +131,7 @@ public class BullsAndCows {
     public static int bulls(int[] numberArray, int[] randomArray){
         int bulls = 0;
         for(int i = 0; i < randomArray.length; i++){
+            // if in the position i of the number the player entered is equal of the number in the random array is a bull
             if(numberArray[i] == randomArray[i]){
                 bulls++;
             }
@@ -141,14 +143,18 @@ public class BullsAndCows {
     public static int cows(int[] numberArray, int[] randomArray){
         int cows = 0;
         boolean marked[] = new boolean[randomArray.length];
+        // same logic of the bulls but in this case mark the bulls so when we calculate the cows they dont count the bull
         for(int i = 0; i < randomArray.length; i++){
             if(numberArray[i] == randomArray[i]){
                 marked[i] = true;
             }
         }
         for(int i = 0; i < randomArray.length; i++){
+            // check if the position is a bull
             if(!marked[i]){    
                 for(int j = 0; j < randomArray.length; j++){
+                    // if in the position i of the number entered is equal of some other number of the random Array is a cow
+                    // and if the number is repeated dont have any problems
                     if(numberArray[i] == randomArray[j]){
                         cows++;  
                         break;
@@ -173,7 +179,7 @@ public class BullsAndCows {
         do{
             // The player enter his number
             String numberEntered = enterNumber(digits);
-            System.out.print("Number entered: ");
+            System.out.println("Number entered: ");
             // The number is transformed to char and int and save the number in an array
             char stringArray[] = generateArray(numberEntered);
             int numArray[] = charToString(stringArray);
@@ -198,6 +204,7 @@ public class BullsAndCows {
         if(!finishGame(bulls, numRandom)){
             System.out.println("Sorry you have run out of tries, better luck the next time!");
         }
+        System.out.println("The generated number was: " + Arrays.toString(numRandom));
         System.out.println("Your score is: " + score(actualTries, tries));
         return actualTries;
     }
@@ -207,7 +214,7 @@ public class BullsAndCows {
         return bulls == randomArray.length;
     }
     
-    // Add the logic of the score and this function is to mark the winner of Player vs Player
+    // Add the logic of the score of the game
     public static int score(int actualTries, int tries){
         tries *= 100;
         actualTries *= 100;
@@ -256,7 +263,7 @@ public class BullsAndCows {
         }while(option != 3);
     } 
     
-    // it is the main and show the option of the game
+    // it is the main and show the options of the game
     public static void main(String[] args) {
         int opc;
         int digits;

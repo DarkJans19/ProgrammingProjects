@@ -173,6 +173,7 @@ public class BullsAndCows {
         int cows;
         int[] numRandom = numberRandom(digits);
         boolean askHelp = true;
+        boolean[] flags = {false, false, false, false};
         if(isTutorial){
             System.out.println("Random number generated: ");
             showArray(numRandom);
@@ -186,7 +187,6 @@ public class BullsAndCows {
             int numArray[] = charToString(stringArray);
             // Show the number array
             showArray(numArray);
-            helps(askHelp, tries, actualTries, numRandom, numArray);
             // Save in variables the amount of bulls and cows
             bulls = bulls(numArray, numRandom);
             cows = cows(numArray, numRandom);
@@ -200,7 +200,9 @@ public class BullsAndCows {
                 System.out.println("Congratulations you guessed the number!");
                 break;
             }
-            actualTries++;
+            // if the player wants helps give helps
+            helps(askHelp, tries, actualTries, numRandom, numArray, flags);
+            actualTries++;   
         }while(actualTries < tries);
         // if the player doesn't guess the number show this message
         if(!finishGame(bulls, numRandom)){
@@ -224,25 +226,31 @@ public class BullsAndCows {
         return score;
     }
     
-    public static void helps(boolean askHelp, int totalTries, int tries, int[] randomArray, int[] numberArray){
+    // This method shows the helps to the player after they get an especific score
+    public static void helps(boolean askHelp, int totalTries, int tries, int[] randomArray, int[] numberArray, boolean [] flags){
         int score = score(tries, totalTries);
         totalTries *= 100;
         if(askHelp){
-            if(score == 100){
+            if(!flags[0] && score <= totalTries * 0.25){
                 giveHelp(randomArray, numberArray);
+                flags[0] = true;
             }
-            else if(score < (totalTries / 2)){
+            else if(!flags[1] && score <= totalTries / 2){
                 giveHelp(randomArray, numberArray);
+                flags[1] = true;
             }
-            else if(score < (totalTries / 0.75)){
+            else if(!flags[2] && score <= totalTries * 0.75){
                 giveHelp(randomArray, numberArray);
+                flags[2] = true;
             }
-            else if(score < (totalTries / 0.25)){
+            else if(!flags[3] && score == 100){
                 giveHelp(randomArray, numberArray);
+                flags[3] = true;
             }
         }
     }
     
+    // This method shows the helps after cheking if the number entered was a bull, and show another number in the random Array
     public static void giveHelp(int[] randomArray, int[] numberArray){
         boolean[] marked = new boolean[randomArray.length];
         int i;
@@ -252,11 +260,18 @@ public class BullsAndCows {
                 marked[i] = true;
             }
         }
-        for(int j = 0; j < randomArray.length; i++){
-            if(!marked[i]){
-                System.out.println("A clue of a bull is the number " + i);
+        for(int j = 0; j < randomArray.length; j++){
+            if(!marked[j]){
+                System.out.println("A clue of a bull is the number " + randomArray[j]);
                 break;
             }
+        }
+        restartArrays(marked);
+    }
+    
+    public static void restartArrays(boolean[] Array){
+        for(boolean bool : Array){
+            bool = false;
         }
     }
     
@@ -267,7 +282,7 @@ public class BullsAndCows {
         System.out.println("Second player turn");
         int player2 = playerVsMachine(digits, tries, false);
         int score2 = score(player2, tries);
-        // The number with minus score wins 
+        // The number with more score wins 
         if(score1 > score2){
             System.out.println("The player 1 wins");
         }

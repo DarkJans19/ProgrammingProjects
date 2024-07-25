@@ -245,13 +245,18 @@ public class BullsAndCows {
     
     public static void giveHelp(int[] randomArray, int[] numberArray){
         boolean[] marked = new boolean[randomArray.length];
-        for(int i = 0; i < randomArray.length; i++){
+        int i;
+        for(i = 0; i < randomArray.length; i++){
             // if in the position i of the number the player entered is equal of the number in the random array is a bull
-            if(numberArray[i] == randomArray[i] && !marked[i]){
+            if(numberArray[i] == randomArray[i]){
+                marked[i] = true;
+            }
+        }
+        for(int j = 0; j < randomArray.length; i++){
+            if(!marked[i]){
                 System.out.println("A clue of a bull is the number " + i);
                 break;
             }
-            marked[i] = true;
         }
     }
     

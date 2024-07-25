@@ -172,6 +172,7 @@ public class BullsAndCows {
         int bulls;
         int cows;
         int[] numRandom = numberRandom(digits);
+        boolean askHelp = true;
         if(isTutorial){
             System.out.println("Random number generated: ");
             showArray(numRandom);
@@ -185,6 +186,7 @@ public class BullsAndCows {
             int numArray[] = charToString(stringArray);
             // Show the number array
             showArray(numArray);
+            helps(askHelp, tries, actualTries, numRandom, numArray);
             // Save in variables the amount of bulls and cows
             bulls = bulls(numArray, numRandom);
             cows = cows(numArray, numRandom);
@@ -215,11 +217,42 @@ public class BullsAndCows {
     }
     
     // Add the logic of the score of the game
-    public static int score(int actualTries, int tries){
-        tries *= 100;
+    public static int score(int actualTries, int totalTries){
+        totalTries *= 100;
         actualTries *= 100;
-        int score = tries - actualTries;
+        int score = totalTries - actualTries;
         return score;
+    }
+    
+    public static void helps(boolean askHelp, int totalTries, int tries, int[] randomArray, int[] numberArray){
+        int score = score(tries, totalTries);
+        totalTries *= 100;
+        if(askHelp){
+            if(score == 100){
+                giveHelp(randomArray, numberArray);
+            }
+            else if(score < (totalTries / 2)){
+                giveHelp(randomArray, numberArray);
+            }
+            else if(score < (totalTries / 0.75)){
+                giveHelp(randomArray, numberArray);
+            }
+            else if(score < (totalTries / 0.25)){
+                giveHelp(randomArray, numberArray);
+            }
+        }
+    }
+    
+    public static void giveHelp(int[] randomArray, int[] numberArray){
+        boolean[] marked = new boolean[randomArray.length];
+        for(int i = 0; i < randomArray.length; i++){
+            // if in the position i of the number the player entered is equal of the number in the random array is a bull
+            if(numberArray[i] == randomArray[i] && !marked[i]){
+                System.out.println("A clue of a bull is the number " + i);
+                break;
+            }
+            marked[i] = true;
+        }
     }
     
     public static void playerVsPlayer(int digits, int tries){

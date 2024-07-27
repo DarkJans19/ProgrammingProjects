@@ -50,6 +50,15 @@ public class BullsAndCows {
         return optionHelps;
     }
     
+    public static void tutorialMessage(){
+        System.out.println("Welcome to the tutorial of the game bulls and cows, this is an interesting game and");
+        System.out.println("the objective of the game is to guess a number, and the machine will give you some");
+        System.out.println("clues to guess it, named bulls and cows");
+        System.out.println("The bulls are the correct number in the correct position");
+        System.out.println("The cows are the correct number but not the correct position");
+        System.out.println("Give it a try");
+    }
+    
     /* This method allows the player to enter the amount of numbers that they want to play, and if they choose an option
     bigger than 10 or smallest than 1 enter to the iteration 
     */
@@ -90,7 +99,8 @@ public class BullsAndCows {
         }
         return numRandom;
     }
-        // Use the generated String to save the chars into an array
+    
+    // Use the generated String to save the chars into an array
     public static char[] generateArray(String newNumber){
         char[] numberArray = newNumber.toCharArray();
         return numberArray;
@@ -176,6 +186,93 @@ public class BullsAndCows {
         return cows;
     }
     
+    // Here is the option of the player to choose play with helps or not
+    public static boolean wantHelp(){
+        byte optionHelps;
+        do{
+            optionHelps = menuOfHelps();
+            switch(optionHelps){
+                case 1:
+                    System.out.println("Game with helps");
+                    return true;
+                case 2:
+                    System.out.println("Game without helps");
+                    return false;
+                case 3: 
+                    System.out.println("Go back");
+                    break;
+                default:
+                    System.out.println("Not a valid option, try again");
+                    break;
+            }
+        }while(optionHelps != 3);
+        return false;
+    }
+    
+    // Finish the game of bulls and cows
+    public static boolean finishGame(int bulls, int digits){
+        return bulls == digits;
+    }
+    
+    // Add the logic of the score of the game
+    public static int score(int actualTries, int totalTries){
+        totalTries *= 100;
+        actualTries *= 100;
+        int score = totalTries - actualTries;
+        return score;
+    }
+    
+    // This method shows the helps to the player after they get an especific score
+    public static void helps(boolean askHelp, int totalTries, int tries, int[] randomArray, int[] numberArray, boolean [] flags){
+        int score = score(tries, totalTries);
+        totalTries *= 100;
+        if(askHelp){
+            if(!flags[0] && score <= totalTries * 0.25){
+                giveHelp(randomArray, numberArray);
+                flags[0] = true;
+            }
+            else if(!flags[1] && score <= totalTries / 2){
+                giveHelp(randomArray, numberArray);
+                flags[1] = true;
+            }
+            else if(!flags[2] && score <= totalTries * 0.75){
+                giveHelp(randomArray, numberArray);
+                flags[2] = true;
+            }
+            else if(!flags[3] && score == 100){
+                giveHelp(randomArray, numberArray);
+                flags[3] = true;
+            }
+        }
+    }
+    
+    // Restart the boolean array for the method giveHelp
+    public static void restartBooleanArrays(boolean[] Array){
+        for(boolean bool : Array){
+            bool = false;
+        }
+    }
+    
+    // This method shows the helps after cheking if the number entered was a bull, and show another number in the random Array
+    public static void giveHelp(int[] randomArray, int[] numberArray){
+        boolean[] marked = new boolean[randomArray.length];
+        int i;
+        for(i = 0; i < randomArray.length; i++){
+            // if in the position i of the number the player entered is equal of the number in the random array is a bull
+            if(numberArray[i] == randomArray[i]){
+                marked[i] = true;
+            }
+        }
+        for(int j = 0; j < randomArray.length; j++){
+            if(!marked[j]){
+                System.out.println("A clue of a bull is the number " + randomArray[j]);
+                break;
+            }
+        }
+        // Restart the boolean because if all hints are showed the array thinks that all possible hint were showed when not
+        restartBooleanArrays(marked);
+    }
+    
     //Logic of the player vs machine
     public static int playerVsMachine(int digits, int tries, boolean isTutorial){
         // initialize the variables
@@ -211,7 +308,7 @@ public class BullsAndCows {
             // Show and actualize the number of tries
             System.out.println("Actual tries: " + (actualTries+1));
             // Finish the game if the player guess the number
-            if(finishGame(bulls, numRandom)){
+            if(finishGame(bulls, digits)){
                 System.out.println("Congratulations you guessed the number!");
                 break;
             }
@@ -220,7 +317,7 @@ public class BullsAndCows {
             actualTries++;   
         }while(actualTries < tries);
         // if the player doesn't guess the number show this message
-        if(!finishGame(bulls, numRandom)){
+        if(!finishGame(bulls, digits)){
             System.out.println("Sorry you have run out of tries, better luck the next time!");
         }
         System.out.println("The generated number was: " + Arrays.toString(numRandom));
@@ -228,90 +325,30 @@ public class BullsAndCows {
         return actualTries;
     }
     
-    // Here is the option of the player to choose play with helps or not
-    public static boolean wantHelp(){
-        byte optionHelps;
-        do{
-            optionHelps = menuOfHelps();
-            switch(optionHelps){
-                case 1:
-                    System.out.println("Game with helps");
-                    return true;
-                case 2:
-                    System.out.println("Game without helps");
-                    return false;
-                case 3: 
-                    System.out.println("Go back");
-                    break;
-                default:
-                    System.out.println("Not a valid option, try again");
-                    break;
-            }
-        }while(optionHelps != 3);
-        return false;
-    }
-    
-    // Finish the game of bulls and cows
-    public static boolean finishGame(int bulls, int[] randomArray){
-        return bulls == randomArray.length;
-    }
-    
-    // Add the logic of the score of the game
-    public static int score(int actualTries, int totalTries){
-        totalTries *= 100;
-        actualTries *= 100;
-        int score = totalTries - actualTries;
-        return score;
-    }
-    
-    // This method shows the helps to the player after they get an especific score
-    public static void helps(boolean askHelp, int totalTries, int tries, int[] randomArray, int[] numberArray, boolean [] flags){
-        int score = score(tries, totalTries);
-        totalTries *= 100;
-        if(askHelp){
-            if(!flags[0] && score <= totalTries * 0.25){
-                giveHelp(randomArray, numberArray);
-                flags[0] = true;
-            }
-            else if(!flags[1] && score <= totalTries / 2){
-                giveHelp(randomArray, numberArray);
-                flags[1] = true;
-            }
-            else if(!flags[2] && score <= totalTries * 0.75){
-                giveHelp(randomArray, numberArray);
-                flags[2] = true;
-            }
-            else if(!flags[3] && score == 100){
-                giveHelp(randomArray, numberArray);
-                flags[3] = true;
-            }
-        }
-    }
-    
-    // This method shows the helps after cheking if the number entered was a bull, and show another number in the random Array
-    public static void giveHelp(int[] randomArray, int[] numberArray){
-        boolean[] marked = new boolean[randomArray.length];
-        int i;
-        for(i = 0; i < randomArray.length; i++){
-            // if in the position i of the number the player entered is equal of the number in the random array is a bull
-            if(numberArray[i] == randomArray[i]){
-                marked[i] = true;
-            }
-        }
-        for(int j = 0; j < randomArray.length; j++){
-            if(!marked[j]){
-                System.out.println("A clue of a bull is the number " + randomArray[j]);
+    public static void machineVsPlayer(int digits, int tries){
+        // initialize the variables
+        int actualTries = 0;
+        int bulls = 0;
+        int cows;
+        int[] guessedNumber;
+        boolean[] digitsUsed = new boolean[10];
+        Scanner sc = new Scanner(System.in);
+        while(actualTries < tries){
+            guessedNumber = numberRandom(digits);
+            System.out.println("Machine guesses: ");
+            showArray(guessedNumber);
+            System.out.println("Number of Bulls: ");
+            bulls = sc.nextInt();
+            System.out.println("Number of cows: ");
+            cows = sc.nextInt();
+            if(finishGame(bulls, digits)){
+                System.out.println("The machine guessed the number!");
                 break;
-            }
+            }   
+            Arrays.fill(digitsUsed, false);
         }
-        // Restart the boolean because if all hints are showed the array thinks that all possible hint were showed when not
-        restartBooleanArrays(marked);
-    }
-    
-    public static void restartBooleanArrays(boolean[] Array){
-        for(boolean bool : Array){
-            bool = false;
-        }
+        if(!finishGame(bulls, digits))
+        System.out.println("The machine can't guess the number");
     }
     
     public static void playerVsPlayer(int digits, int tries){
@@ -332,6 +369,8 @@ public class BullsAndCows {
             System.out.println("Nobody's wins");
         }
     }
+    
+    
     
     // Are the options for the players if want to play with repeated numbers or not
     public static void IterationOfRepeated(){
@@ -366,12 +405,7 @@ public class BullsAndCows {
             switch(opc){
                 case 1:
                     System.out.println("Tutorial");
-                    System.out.println("Welcome to the tutorial of the game bulls and cows, this is an interesting game and");
-                    System.out.println("the objective of the game is to guess a number, and the machine will give you some");
-                    System.out.println("clues to guess it, named bulls and cows");
-                    System.out.println("The bulls are the correct number in the correct position");
-                    System.out.println("The cows are the correct number but not the correct position");
-                    System.out.println("Give it a try");
+                    tutorialMessage();
                     digits = numberOfDigits();
                     tries = numberOfTries(digits);
                     System.out.println("I will show you the random number so you can understand better");
@@ -410,9 +444,15 @@ public class BullsAndCows {
                             switch(option){
                             case 1:
                                     System.out.println("You chose repeated numbers");
+                                    digits = numberOfDigits();
+                                    tries = numberOfTries(digits);
+                                    machineVsPlayer(digits, tries);
                                 break;
                             case 2:
                                     System.out.println("You chose without repeated numbers");
+                                    digits = numberOfDigits();
+                                    tries = numberOfTries(digits);
+                                    machineVsPlayer(digits, tries);
                                 break;
                             case 3:
                                     System.out.println("Go back");

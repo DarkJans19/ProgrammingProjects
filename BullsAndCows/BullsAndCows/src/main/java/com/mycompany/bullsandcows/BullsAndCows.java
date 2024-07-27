@@ -325,16 +325,86 @@ public class BullsAndCows {
         return actualTries;
     }
     
+    // Método para generar un número aleatorio sin dígitos repetidos
+    public static int[] numberRandomBull(int digits) {
+        int[] numRandom = new int[digits];
+        Random random = new Random();
+        
+        for (int i = 0; i < digits; i++) {
+            int digit;
+            do {
+                digit = random.nextInt(10); // Generar un dígito aleatorio
+            } while (contains(numRandom, digit)); // Asegurarse de que el dígito no se repita en esta conjetura
+            numRandom[i] = digit;
+        }
+        
+        return numRandom;
+    }
+    
+    public static boolean contains(int[] numRandom, int digits){
+        for(int num : numRandom){
+            if(num == digits){
+                return true;
+            }
+        }
+        return false;
+    }
+        // Método para ajustar la conjetura basada en bulls y cows
+    public static int[] adjustGuess(int[] guessedNumber, boolean[] digitsUsed, int bulls, int cows) {
+        Random random = new Random();
+        
+        // Almacenar los dígitos que no son bulls
+        int[] possibleCows = new int[guessedNumber.length];
+        int cowIndex = 0;
+        
+        // Identificar los dígitos que son bulls y mantener su posición
+        for (int i = 0; i < guessedNumber.length; i++) {
+            if (!digitsUsed[i]) {
+                possibleCows[cowIndex++] = guessedNumber[i];
+            }
+        }
+        
+        // Si hay cows, permutar sus posiciones
+        if (cows > 0 && cowIndex > 0) {
+            // Permutar posiciones de los posibles cows
+            for (int i = 0; i < cowIndex; i++) {
+                int swapIndex = random.nextInt(cowIndex);
+                int temp = possibleCows[i];
+                possibleCows[i] = possibleCows[swapIndex];
+                possibleCows[swapIndex] = temp;
+            }
+            
+            // Reasignar los valores permutados de cows a guessedNumber
+            cowIndex = 0;
+            for (int i = 0; i < guessedNumber.length; i++) {
+                if (!digitsUsed[i]) {
+                    guessedNumber[i] = possibleCows[cowIndex++];
+                }
+            }
+        }
+        
+        // Marcar bulls conocidos
+        for (int i = 0; i < guessedNumber.length; i++) {
+            if (!digitsUsed[i] && bulls > 0) {
+                digitsUsed[i] = true;
+                bulls--;
+            }
+        }
+        
+        return guessedNumber;
+    }
+    
     public static void machineVsPlayer(int digits, int tries){
         // initialize the variables
         int actualTries = 0;
         int bulls = 0;
         int cows;
         int[] guessedNumber;
+        int[] knownBulls = new int[digits];
         boolean[] digitsUsed = new boolean[10];
         Scanner sc = new Scanner(System.in);
         while(actualTries < tries){
-            guessedNumber = numberRandom(digits);
+            guessedNumber = numberRandomBull(digits);
             System.out.println("Machine guesses: ");
             showArray(guessedNumber);
             System.out.println("Number of Bulls: ");
@@ -345,7 +415,10 @@ public class BullsAndCows {
                 System.out.println("The machine guessed the number!");
                 break;
             }   
+            guessedNumber = adjustGuess(guessedNumber, digitsUsed, bulls, cows);
             Arrays.fill(digitsUsed, false);
+            System.out.println("Number of tries: " + (actualTries + 1));
+            actualTries++;
         }
         if(!finishGame(bulls, digits))
         System.out.println("The machine can't guess the number");

@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class BullsAndCows {
     
     // This is the principal menu and shows the options of the game
-    public static int PrincipalMenu(){
+    public static byte PrincipalMenu(){
         Scanner sc = new Scanner(System.in);
         System.out.println("--------------------------------------");
         System.out.println("\tBulls and Cows");
@@ -23,21 +23,32 @@ public class BullsAndCows {
         System.out.println("\t3. Machine vs Player.");
         System.out.println("\t4. Player vs Player.");
         System.out.println("\t5. Leave.");
-        int opc = sc.nextInt();
+        byte opc = sc.nextByte();
         return opc;
     }
     
     // This is a menu that shows if want to play with repeated numbers or not
-    public static int MenuOfRepeated(){
+    public static byte MenuOfRepeated(){
         Scanner sc = new Scanner(System.in);
         System.out.println("--------------------------------------");
         System.out.println("\tHow do you want to play?");
         System.out.println("\t1. With repeated numbers");
         System.out.println("\t2. Without repeated numbers");
-        System.out.println("\t3. Salir.");
-        int option = sc.nextInt();
+        System.out.println("\t3. Leave.");
+        byte option = sc.nextByte();
         return option;
     } 
+    
+    public static byte menuOfHelps(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("--------------------------------------");
+        System.out.println("\tHow do you want to play?");
+        System.out.println("\t1. With helps");
+        System.out.println("\t2. Without helps");
+        System.out.println("\t3. Leave.");
+        byte optionHelps = sc.nextByte();
+        return optionHelps;
+    }
     
     /* This method allows the player to enter the amount of numbers that they want to play, and if they choose an option
     bigger than 10 or smallest than 1 enter to the iteration 
@@ -171,9 +182,13 @@ public class BullsAndCows {
         int actualTries = 0;
         int bulls;
         int cows;
+        // Define if the game will have helps or not
+        boolean askHelp = wantHelp();
+        // Initialize the random array
         int[] numRandom = numberRandom(digits);
-        boolean askHelp = true;
+        // This boolean array shows the helps once and if turning true when a help is given
         boolean[] flags = {false, false, false, false};
+        // if the game is the tutorial shows the menu of the tutorial and shows the random number generated
         if(isTutorial){
             System.out.println("Random number generated: ");
             showArray(numRandom);
@@ -211,6 +226,29 @@ public class BullsAndCows {
         System.out.println("The generated number was: " + Arrays.toString(numRandom));
         System.out.println("Your score is: " + score(actualTries, tries));
         return actualTries;
+    }
+    
+    // Here is the option of the player to choose play with helps or not
+    public static boolean wantHelp(){
+        byte optionHelps;
+        do{
+            optionHelps = menuOfHelps();
+            switch(optionHelps){
+                case 1:
+                    System.out.println("Game with helps");
+                    return true;
+                case 2:
+                    System.out.println("Game without helps");
+                    return false;
+                case 3: 
+                    System.out.println("Go back");
+                    break;
+                default:
+                    System.out.println("Not valid number, try again");
+                    break;
+            }
+        }while(optionHelps != 3);
+        return false;
     }
     
     // Finish the game of bulls and cows

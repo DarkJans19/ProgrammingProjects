@@ -244,7 +244,7 @@ public class BullsAndCows {
                     System.out.println("Go back");
                     break;
                 default:
-                    System.out.println("Not valid number, try again");
+                    System.out.println("Not a valid option, try again");
                     break;
             }
         }while(optionHelps != 3);
@@ -304,10 +304,11 @@ public class BullsAndCows {
                 break;
             }
         }
-        restartArrays(marked);
+        // Restart the boolean because if all hints are showed the array thinks that all possible hint were showed when not
+        restartBooleanArrays(marked);
     }
     
-    public static void restartArrays(boolean[] Array){
+    public static void restartBooleanArrays(boolean[] Array){
         for(boolean bool : Array){
             bool = false;
         }

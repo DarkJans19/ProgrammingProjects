@@ -132,7 +132,7 @@ public class BullsAndCows {
         System.out.print("How many tries do you want to play with?: ");
         int tries = sc.nextInt();
         while(tries <= 0 || tries > (digits * 5)){
-            System.out.print("Write again the number of tries");
+            System.out.print("Write again the number of tries: ");
             tries = sc.nextInt();
         }   
         System.out.println("The amount of tries to play is: " + tries);
@@ -261,6 +261,34 @@ public class BullsAndCows {
         return cows;
     }
     
+    public static int cowsRepeated(int[] numberArray, int[] randomArray){
+        int cows = 0;
+        boolean[] markedRandom = new boolean[randomArray.length];
+        boolean[] markedNumber = new boolean[numberArray.length];
+
+        // Marks the bulls avoiding them repeat
+        for (int i = 0; i < randomArray.length; i++) {
+            if (numberArray[i] == randomArray[i]) {
+                markedRandom[i] = true;
+                markedNumber[i] = true;
+            }
+        }
+
+        // this array counts the cows without the bulls
+        for (int i = 0; i < numberArray.length; i++) {
+            if (!markedNumber[i]) { // Si este índice no es un bull
+                for (int j = 0; j < randomArray.length; j++) {
+                    if (numberArray[i] == randomArray[j] && !markedRandom[j]) {
+                        cows++;
+                        markedRandom[j] = true; // Marked the number and avoid repeat cows
+                        break;
+                    }
+                }
+            }
+        }
+        return cows;
+    }
+    
     // Finish the game of bulls and cows
     public static boolean finishGame(int bulls, int digits){
         return bulls == digits;
@@ -364,9 +392,16 @@ public class BullsAndCows {
             showArray(numArray);
             // Save in variables the amount of bulls and cows
             bulls = bulls(numArray, numRandom);
-            cows = cows(numArray, numRandom);
             // Show the amount of bulls and cows
             System.out.println("The amount of bulls is: " + bulls);
+            if(gameWithRepeated){
+                cows = cowsRepeated(numArray, numRandom);
+            }
+            else{
+                cows = cows(numArray, numRandom);
+            }
+
+
             System.out.println("The amount of cows is: " + cows);
             // Show and actualize the number of tries
             System.out.println("Actual tries: " + (actualTries+1));

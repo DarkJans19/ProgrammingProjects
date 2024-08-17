@@ -239,7 +239,7 @@ public class BullsAndCows {
         byte optionRepeated;
         do{
             optionRepeated = MenuOfRepeated();
-            switch(MenuOfRepeated()){
+            switch(optionRepeated){
                 case 1:
                     System.out.println("Game with repeateds numbers");
                     return true;
@@ -329,8 +329,17 @@ public class BullsAndCows {
         int cows;
         // Define if the game will have helps or not
         boolean askHelp = wantHelp();
-        // Initialize the random array
-        int[] numRandom = numberRandom(digits);
+        // Define if the game will have repeated or not repeated numbers 
+        boolean gameWithRepeated = howWantPlay();
+        // Initialize an empty random array
+        int[] numRandom = new int[digits];
+        // Fill the array depending if the array generated is repeated or not
+        if(gameWithRepeated == true){
+            numRandom = randomNumberNonRepeated(digits); 
+        }
+        else{
+            numRandom = numberRandom(digits); 
+        }
         // This boolean array shows the helps once and if turning true when a help is given
         boolean[] flags = {false, false, false, false};
         // if the game is the tutorial shows the menu of the tutorial and shows the random number generated

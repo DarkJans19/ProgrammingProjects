@@ -334,7 +334,7 @@ public class BullsAndCows {
         // Initialize an empty random array
         int[] numRandom = new int[digits];
         // Fill the array depending if the array generated is repeated or not
-        if(gameWithRepeated == true){
+        if(gameWithRepeated){
             numRandom = randomNumberNonRepeated(digits); 
         }
         else{

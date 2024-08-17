@@ -13,6 +13,8 @@ import java.util.Scanner;
  */
 public class BullsAndCows {
     
+    // Menus
+    
     // This is the principal menu and shows the options of the game
     public static byte PrincipalMenu(){
         Scanner sc = new Scanner(System.in);
@@ -59,6 +61,54 @@ public class BullsAndCows {
         System.out.println("Give it a try");
     }
     
+        // Here is the option of the player to choose play with helps or not
+    public static boolean wantHelp(){
+        byte optionHelps;
+        do{
+            optionHelps = menuOfHelps();
+            switch(optionHelps){
+                case 1:
+                    System.out.println("Game with helps");
+                    return true;
+                case 2:
+                    System.out.println("Game without helps");
+                    return false;
+                case 3: 
+                    System.out.println("Go back");
+                    break;
+                default:
+                    System.out.println("Not a valid option, try again");
+                    break;
+            }
+        }while(optionHelps != 3);
+        return false;
+    }
+    
+    // Here is the option of the player to choose play with repeated numbers or not
+    public static boolean howWantPlay(){
+        byte optionRepeated;
+        do{
+            optionRepeated = MenuOfRepeated();
+            switch(optionRepeated){
+                case 1:
+                    System.out.println("Game with repeateds numbers");
+                    return true;
+                case 2:
+                    System.out.println("Game without repeateds numbers");
+                    return false;
+                case 3: 
+                    System.out.println("Go back");
+                    break;
+                default:
+                    System.out.println("Not a valid option, try again");
+                    break;
+            }
+        }while(optionRepeated != 3);
+        return false;
+    }
+    
+    // First variables
+    
     /* This method allows the player to enter the amount of numbers that they want to play, and if they choose an option
     bigger than 10 or smallest than 1 enter to the iteration 
     */
@@ -89,17 +139,6 @@ public class BullsAndCows {
         return tries;
     }
     
-    
-    // This method generate an array with randoms numbers 
-    public static int[] numberRandom(int digits) {
-        int[] numRandom = new int[digits];
-        Random random = new Random();
-        for (int i = 0; i < digits; i++) {
-            numRandom[i] = random.nextInt(10);
-        }
-        return numRandom;
-    }
-    
     // This method checks if the number generated is repeated or not
     public static boolean isRepeated(int[] numRandom, int generatedNumber, int i){
       for(int j = 0; j < i; j++){
@@ -123,6 +162,16 @@ public class BullsAndCows {
         }
       }
       return numRandom;
+    }
+    
+    // This method generate an array with randoms numbers 
+    public static int[] numberRandom(int digits) {
+        int[] numRandom = new int[digits];
+        Random random = new Random();
+        for (int i = 0; i < digits; i++) {
+            numRandom[i] = random.nextInt(10);
+        }
+        return numRandom;
     }
     
     // Use the generated String to save the chars into an array
@@ -173,6 +222,7 @@ public class BullsAndCows {
         return enterNumber;
     }
     
+    // Logic of bulls and cows
     // Show the amount of cows of the entered number 
     public static int bulls(int[] numberArray, int[] randomArray){
         int bulls = 0;
@@ -199,8 +249,8 @@ public class BullsAndCows {
             // check if the position is a bull
             if(!marked[i]){    
                 for(int j = 0; j < randomArray.length; j++){
-                    // if in the position i of the number entered is equal of some other number of the random Array is a cow
-                    // and if the number is repeated dont have any problems
+                    /*if in the position i of the number entered is equal of some other number of the random Array is a cow
+                     and if the number is repeated dont have any problems*/
                     if(numberArray[i] == randomArray[j]){
                         cows++;  
                         break;
@@ -209,52 +259,6 @@ public class BullsAndCows {
             }
         }
         return cows;
-    }
-    
-    // Here is the option of the player to choose play with helps or not
-    public static boolean wantHelp(){
-        byte optionHelps;
-        do{
-            optionHelps = menuOfHelps();
-            switch(optionHelps){
-                case 1:
-                    System.out.println("Game with helps");
-                    return true;
-                case 2:
-                    System.out.println("Game without helps");
-                    return false;
-                case 3: 
-                    System.out.println("Go back");
-                    break;
-                default:
-                    System.out.println("Not a valid option, try again");
-                    break;
-            }
-        }while(optionHelps != 3);
-        return false;
-    }
-    
-    // Here is the option of the player to choose play with repeated numbers or not
-    public static boolean howWantPlay(){
-        byte optionRepeated;
-        do{
-            optionRepeated = MenuOfRepeated();
-            switch(optionRepeated){
-                case 1:
-                    System.out.println("Game with repeateds numbers");
-                    return true;
-                case 2:
-                    System.out.println("Game without repeateds numbers");
-                    return false;
-                case 3: 
-                    System.out.println("Go back");
-                    break;
-                default:
-                    System.out.println("Not a valid option, try again");
-                    break;
-            }
-        }while(optionRepeated != 3);
-        return false;
     }
     
     // Finish the game of bulls and cows
@@ -269,6 +273,8 @@ public class BullsAndCows {
         int score = totalTries - actualTries;
         return score;
     }
+    
+    // Helps
     
     // This method shows the helps to the player after they get an especific score
     public static void helps(boolean askHelp, int totalTries, int tries, int[] randomArray, int[] numberArray, boolean [] flags){
@@ -451,6 +457,7 @@ public class BullsAndCows {
         return guessedNumber;
     }
     
+    // Logic of machine Vs Player
     public static void machineVsPlayer(int digits, int tries){
         // initialize the variables
         int actualTries = 0;
@@ -499,30 +506,6 @@ public class BullsAndCows {
             System.out.println("Nobody's wins");
         }
     }
-    
-    
-    
-    // Are the options for the players if want to play with repeated numbers or not
-    public static void IterationOfRepeated(){
-        int option;
-        do{
-            option = MenuOfRepeated();
-            switch(option){
-                case 1:
-                    System.out.println("You chose repeated numbers");
-                    break;
-                case 2:
-                    System.out.println("You chose without repeated numbers");
-                    break;
-                case 3:
-                    System.out.println("Go back");
-                    break;
-                default:
-                    System.out.println("Not valid number, try again");
-                    break;               
-            }
-        }while(option != 3);
-    } 
     
     // it is the main and show the options of the game
     public static void main(String[] args) {

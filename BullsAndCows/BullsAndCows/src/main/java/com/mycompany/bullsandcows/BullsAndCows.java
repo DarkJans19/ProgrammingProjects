@@ -100,6 +100,31 @@ public class BullsAndCows {
         return numRandom;
     }
     
+    // This method checks if the number generated is repeated or not
+    public static boolean isRepeated(int[] numRandom, int generatedNumber, int i){
+      for(int j = 0; j < i; j++){
+        if(generatedNumber == numRandom[j]){
+          return true;
+        }
+      }
+      return false;
+    }
+    
+    // A array with random number without repeated numbers
+    public static int[] randomNumberNonRepeated(int digits){
+      int[] numRandom = new int[digits];
+      Random random = new Random();
+      int i = 0, generatedNumber;
+      while(i < digits){
+        generatedNumber = random.nextInt(10);
+        if(!isRepeated(numRandom, generatedNumber, i)){
+          numRandom[i] = generatedNumber;
+          i++;
+        }
+      }
+      return numRandom;
+    }
+    
     // Use the generated String to save the chars into an array
     public static char[] generateArray(String newNumber){
         char[] numberArray = newNumber.toCharArray();
@@ -206,6 +231,29 @@ public class BullsAndCows {
                     break;
             }
         }while(optionHelps != 3);
+        return false;
+    }
+    
+    // Here is the option of the player to choose play with repeated numbers or not
+    public static boolean howWantPlay(){
+        byte optionRepeated;
+        do{
+            optionRepeated = MenuOfRepeated();
+            switch(MenuOfRepeated()){
+                case 1:
+                    System.out.println("Game with repeateds numbers");
+                    return true;
+                case 2:
+                    System.out.println("Game without repeateds numbers");
+                    return false;
+                case 3: 
+                    System.out.println("Go back");
+                    break;
+                default:
+                    System.out.println("Not a valid option, try again");
+                    break;
+            }
+        }while(optionRepeated != 3);
         return false;
     }
     

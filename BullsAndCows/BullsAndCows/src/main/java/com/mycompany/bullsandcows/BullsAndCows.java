@@ -226,6 +226,7 @@ public class BullsAndCows {
     }
     
     // Logic of bulls and cows
+    
     // Show the amount of cows of the entered number 
     public static int bulls(int[] numberArray, int[] randomArray){
         int bulls = 0;
@@ -238,19 +239,25 @@ public class BullsAndCows {
         return bulls;
     }
     
+    public static void markBulls(int[] numberArray, int[] randomArray, boolean[] markedNumber, boolean[] markedRandom){
+        for (int i = 0; i < randomArray.length; i++) {
+            if (numberArray[i] == randomArray[i]) {
+                markedNumber[i] = true;
+                markedRandom[i] = true;
+            }
+        }
+    }
+    
     // Show the amount of cows of the entered number 
     public static int cows(int[] numberArray, int[] randomArray){
         int cows = 0;
-        boolean marked[] = new boolean[randomArray.length];
-        // same logic of the bulls but in this case mark the bulls so when we calculate the cows they dont count the bull
-        for(int i = 0; i < randomArray.length; i++){
-            if(numberArray[i] == randomArray[i]){
-                marked[i] = true;
-            }
-        }
+        boolean markedNumber[] = new boolean[randomArray.length];
+        boolean markedRandom[] = new boolean[randomArray.length];
+        
+        markBulls(numberArray, randomArray, markedNumber, markedRandom);
         for(int i = 0; i < randomArray.length; i++){
             // check if the position is a bull
-            if(!marked[i]){    
+            if(!markedNumber[i]){    
                 for(int j = 0; j < randomArray.length; j++){
                     /*if in the position i of the number entered is equal of some other number of the random Array is a cow
                      and if the number is repeated dont have any problems*/
@@ -264,18 +271,14 @@ public class BullsAndCows {
         return cows;
     }
     
+    // This method checks if in the options of repeated numbers the cow is marked and avoid marks repeated cows
     public static int cowsRepeated(int[] numberArray, int[] randomArray){
         int cows = 0;
-        boolean[] markedRandom = new boolean[randomArray.length];
         boolean[] markedNumber = new boolean[numberArray.length];
-
+        boolean[] markedRandom = new boolean[randomArray.length];
+        
         // Marks the bulls avoiding them repeat
-        for (int i = 0; i < randomArray.length; i++) {
-            if (numberArray[i] == randomArray[i]) {
-                markedRandom[i] = true;
-                markedNumber[i] = true;
-            }
-        }
+        markBulls(numberArray, randomArray, markedNumber, markedRandom);
 
         // this array counts the cows without the bulls
         for (int i = 0; i < numberArray.length; i++) {

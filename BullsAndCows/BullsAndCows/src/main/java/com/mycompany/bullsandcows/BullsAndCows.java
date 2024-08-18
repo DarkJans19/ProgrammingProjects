@@ -7,10 +7,13 @@ package com.mycompany.bullsandcows;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+
 /**
- *
- * @author Jan Sanchez
- */
+ * @authors 
+ * Jan Sanchez (DarkJans19)
+ * Lina Moreno (Lina_SMG)
+**/
+
 public class BullsAndCows {
     
     // Menus
@@ -61,7 +64,7 @@ public class BullsAndCows {
         System.out.println("Give it a try");
     }
     
-        // Here is the option of the player to choose play with helps or not
+    // Here is the option of the player to choose play with helps or not
     public static boolean wantHelp(){
         byte optionHelps;
         do{
@@ -328,13 +331,6 @@ public class BullsAndCows {
         }
     }
     
-    // Restart the boolean array for the method giveHelp
-    public static void restartBooleanArrays(boolean[] Array){
-        for(boolean bool : Array){
-            bool = false;
-        }
-    }
-    
     // This method shows the helps after cheking if the number entered was a bull, and show another number in the random Array
     public static void giveHelp(int[] randomArray, int[] numberArray){
         boolean[] marked = new boolean[randomArray.length];
@@ -352,7 +348,7 @@ public class BullsAndCows {
             }
         }
         // Restart the boolean because if all hints are showed the array thinks that all possible hint were showed when not
-        restartBooleanArrays(marked);
+        Arrays.fill(marked, false);
     }
     
     //Logic of the player vs machine
@@ -366,8 +362,8 @@ public class BullsAndCows {
         // Define if the game will have repeated or not repeated numbers 
         boolean gameWithRepeated = howWantPlay();
         // Initialize an empty random array
-        int[] numRandom = new int[digits];
-        // Fill the array depending if the array generated is repeated or not
+        int[] numRandom;
+        // Fill the array depending if the array generated have repeated numbers or not
         if(!gameWithRepeated){
             numRandom = randomNumberNonRepeated(digits); 
         }

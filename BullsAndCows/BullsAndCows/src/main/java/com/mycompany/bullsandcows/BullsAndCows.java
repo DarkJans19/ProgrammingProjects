@@ -253,7 +253,7 @@ public class BullsAndCows {
         int cows = 0;
         boolean markedNumber[] = new boolean[randomArray.length];
         boolean markedRandom[] = new boolean[randomArray.length];
-        
+        // mark the bulls avoiding repeat them in cows
         markBulls(numberArray, randomArray, markedNumber, markedRandom);
         for(int i = 0; i < randomArray.length; i++){
             // check if the position is a bull
